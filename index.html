@@ -1,1 +1,95 @@
+<!DOCTYPE1 html>
+<html lang="id">
+<head>
+    <!-- Pengaturan karakter dan responsivitas layar HP/Laptop -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wadah Bakat Siswa</title>
+    
+    <!-- Menghubungkan file HTML dengan file Style CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <!-- Header / Bagian Atas Website -->
+    <header class="header-utama">
+        <h1>🌟 Wadah Bakat Siswa</h1>
+        <p>Tunjukkan bakatmu, temukan teman berbakat, dan saling bantu!</p>
+    </header>
+
+    <!-- Kontainer Utama Website -->
+    <main class="container">
+
+        <!-- Form Tambah Bakat (Untuk Siswa Memposting Bakat) -->
+        <section class="kartu-section">
+            <h2>➕ Tambahkan Bakat Kamu</h2>
+            <form id="form-bakat">
+                <!-- Input Nama Siswa -->
+                <div class="input-group">
+                    <label for="nama">Nama Lengkap:</label>
+                    <input type="text" id="nama" placeholder="Contoh: Budi Santoso" required>
+                </div>
+
+                <!-- Input Kelas / Jurusan -->
+                <div class="input-group">
+                    <label for="kelas">Kelas / Jurusan:</label>
+                    <input type="text" id="kelas" placeholder="Contoh: XII IPA 1" required>
+                </div>
+
+                <!-- Input Judul Bakat -->
+                <div class="input-group">
+                    <label for="bakat">Bakat / Keahlian Utama:</label>
+                    <input type="text" id="bakat" placeholder="Contoh: Desain Grafis & Edit Video" required>
+                </div>
+
+                <!-- Input Deskripsi Bakat -->
+                <div class="input-group">
+                    <label for="deskripsi">Deskripsi & Cara Kamu Bisa Membantu:</label>
+                    <textarea id="deskripsi" rows="3" placeholder="Contoh: Saya bisa bantu buatkan poster acara sekolah atau edit video TikTok/Reels." required></textarea>
+                </div>
+
+                <!-- Tombol Submit Form -->
+                <button type="submit" class="btn-primary">Bagikan Bakat Saya</button>
+            </form>
+        </section>
+
+        <!-- Daftar Bakat yang Diunggah -->
+        <section class="kartu-section">
+            <h2>✨ Daftar Bakat Siswa</h2>
+            <!-- Wadah ini akan diisi secara otomatis oleh JavaScript -->
+            <div id="daftar-bakat" class="grid-bakat"></div>
+        </section>
+
+    </main>
+
+    <!-- Modal / Pop-up Form untuk Mengirim Pesan / Bantuan -->
+    <div id="modal-pesan" class="modal-overlay hidden">
+        <div class="modal-konten">
+            <!-- Tombol Tutup Pop-up -->
+            <button class="btn-tutup" id="btn-tutup-modal">&times;</button>
+            
+            <h3 id="modal-judul">Kirim Pesan Bantuan</h3>
+            <p id="modal-deskripsi-tujuan"></p>
+
+            <form id="form-pesan">
+                <!-- Input Nama Pengirim Pesan -->
+                <div class="input-group">
+                    <label for="pengirim">Nama Kamu (Pengirim):</label>
+                    <input type="text" id="pengirim" placeholder="Contoh: Ani" required>
+                </div>
+
+                <!-- Input Pesan yang Ingin Disampaikan -->
+                <div class="input-group">
+                    <label for="isi-pesan">Pesan / Permintaan Bantuan:</label>
+                    <textarea id="isi-pesan" rows="3" placeholder="Contoh: Halo! Bolehkah bantu buatkan poster untuk kegiatan OSIS?" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Kirim Pesan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Menghubungkan file JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
