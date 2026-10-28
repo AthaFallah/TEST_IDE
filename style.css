@@ -179,3 +179,47 @@ ul { list-style: none; }
   .footer-inner { justify-content: center; text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ===== Tambahan: pendaftaran bakat ===== */
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.btn-sm { padding: 8px 16px; font-size: .85rem; border-radius: 10px; }
+
+.modal-wide { width: min(860px, 100%); max-height: 92vh; overflow-y: auto; }
+.reg-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: start; }
+.modal-box select,
+.modal-box input[type="file"] {
+  width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--text); font: inherit;
+}
+.modal-box select:focus { outline: 2px solid var(--primary); border-color: transparent; }
+.modal-box label small { float: right; font-weight: 500; color: var(--muted); }
+.form-error { color: #dc2626; font-size: .85rem; min-height: 1.2em; margin-top: 10px; }
+
+.preview-wrap { position: sticky; top: 0; }
+.preview-label { font-size: .8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin: 12px 0; }
+.preview-wrap .card { animation: none; }
+.preview-wrap .card:hover { transform: none; }
+
+img.avatar { object-fit: cover; background: var(--bg); }
+.card-actions { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.card .btn-link {
+  display: block; width: 100%; padding: 9px; border-radius: 12px; font-weight: 600; font-size: .9rem;
+  border: 2px solid var(--primary); color: var(--primary); text-align: center; transition: all .2s;
+}
+.card .btn-link:hover { background: var(--primary); color: #fff; }
+.meta { font-size: .8rem; color: var(--muted); margin-bottom: 4px; }
+.badge-mine {
+  font-size: .7rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; margin-bottom: 8px;
+  background: color-mix(in srgb, var(--secondary) 25%, transparent); color: var(--primary);
+}
+.btn-del {
+  background: none; border: 0; color: var(--muted); font: inherit; font-size: .8rem;
+  cursor: pointer; text-decoration: underline; margin-top: 2px;
+}
+.btn-del:hover { color: #dc2626; }
+
+@media (max-width: 760px) {
+  .reg-layout { grid-template-columns: 1fr; }
+  .preview-wrap { position: static; }
+  .nav-actions .btn-sm { padding: 8px 12px; }
+}
