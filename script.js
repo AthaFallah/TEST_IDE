@@ -1,5 +1,4 @@
-// --- 1. Data Awal (Dummy Data) ---
-// Kita menyiapkan beberapa sampel data bakat awal
+// --- 1. Data Sampel Bakat Siswa (Dummy Data) ---
 let dataBakat = [
     {
         id: 1,
@@ -21,33 +20,88 @@ let dataBakat = [
     }
 ];
 
-// Variabel untuk menyimpan ID siswa yang sedang dipilih saat ingin kirim pesan
+// Variabel untuk menyimpan ID siswa yang dipilih untuk dikirimi pesan
 let idSiswaTerpilih = null;
 
-// --- 2. Menghubungkan Elemen HTML ke JavaScript ---
+// --- 2. Mengambil Elemen HTML dari DOM ---
+// Elemen Halaman
+const halBeranda = document.getElementById('halaman-beranda');
+const halTambah = document.getElementById('halaman-tambah');
+const halLihat = document.getElementById('halaman-lihat');
+
+// Elemen Navigasi
+const navHome = document.getElementById('nav-home');
+const navTambah = document.getElementById('nav-tambah');
+const navLihat = document.getElementById('nav-lihat');
+const navLogo = document.getElementById('nav-logo');
+
+// Elemen Kartu Pilihan di Beranda
+const kartuKeTambah = document.getElementById('kartu-ke-tambah');
+const kartuKeLihat = document.getElementById('kartu-ke-lihat');
+
+// Elemen Form & Modal
 const formBakat = document.getElementById('form-bakat');
 const wadahDaftarBakat = document.getElementById('daftar-bakat');
-
 const modalPesan = document.getElementById('modal-pesan');
 const btnTutupModal = document.getElementById('btn-tutup-modal');
 const formPesan = document.getElementById('form-pesan');
 const modalDeskripsiTujuan = document.getElementById('modal-deskripsi-tujuan');
 
-// --- 3. Fungsi Menampilkan Semua Bakat ke Layar ---
-function tampilkanDaftarBakat() {
-    // Kosongkan wadah terlebih dahulu agar tidak menumpuk saat di-update
-    wadahDaftarBakat.innerHTML = '';
+// --- 3. Fungsi Sistem Navigasi Pindah Halaman ---
+function bukaHalaman(namaHalaman) {
+    // Sembunyikan semua halaman terlebih dahulu
+    halBeranda.classList.add('hidden');
+    halTambah.classList.add('hidden');
+    halLihat.classList.add('hidden');
 
-    // Perulangan untuk setiap item di dataBakat
+    // Hapus status 'active' dari semua tombol navigasi
+    navHome.classList.remove('active');
+    navTambah.classList.remove('active');
+    navLihat.classList.remove('active');
+
+    // Tampilkan halaman yang dipilih dan aktifkan tombol navigasinya
+    if (namaHalaman === 'halaman-beranda') {
+        halBeranda.classList.remove('hidden');
+        navHome.classList.add('active');
+    } else if (namaHalaman === 'halaman-tambah') {
+        halTambah.classList.remove('hidden');
+        navTambah.classList.add('active');
+    } else if (namaHalaman === 'halaman-lihat') {
+        halLihat.classList.remove('hidden');
+        navLihat.classList.add('active');
+        tampilkanDaftarBakat(); // Refresh isi daftar bakat saat halaman dibuka
+    }
+}
+
+// Menghubungkan klik tombol navigasi dengan fungsi bukaHalaman
+navHome.addEventListener('click', () => bukaHalaman('halaman-beranda'));
+navLogo.addEventListener('click', () => bukaHalaman('halaman-beranda'));
+navTambah.addEventListener('click', () => bukaHalaman('halaman-tambah'));
+navLihat.addEventListener('click', () => bukaHalaman('halaman-lihat'));
+
+// Menghubungkan klik kartu di Halaman Beranda
+kartuKeTambah.addEventListener('click', () => bukaHalaman('halaman-tambah'));
+kartuKeLihat.addEventListener('click', () => bukaHalaman('halaman-lihat'));
+
+// --- 4. Fungsi Menampilkan Daftar Bakat di Halaman Penampil ---
+function tampilkanDaftarBakat() {
+    wadahDaftarBakat.innerHTML = ''; // Kosongkan wadah
+
+    // Jika belum ada data bakat
+    if (dataBakat.length === 0) {
+        wadahDaftarBakat.innerHTML = '<p>Belum ada siswa yang mempromosikan bakat. Jadilah yang pertama!</p>';
+        return;
+    }
+
+    // Tampilkan setiap bakat siswa ke dalam kartu
     dataBakat.forEach(item => {
-        // Buat elemen div baru untuk kartu siswa
         const kartu = document.createElement('div');
         kartu.className = 'item-bakat';
 
-        // Buat daftar pesan yang pernah dikirim ke siswa ini
+        // Format pesan yang pernah diterima
         let HTMLPesan = '';
         if (item.pesan.length > 0) {
-            HTMLPesan = `<div class="daftar-pesan-masuk"><h4>📩 Pesan/Permintaan Bantuan:</h4>`;
+            HTMLPesan = `<div class="daftar-pesan-masuk"><h4>📩 Pesan Masuk / Permintaan Bantuan:</h4>`;
             item.pesan.forEach(p => {
                 HTMLPesan += `
                     <div class="pesan-box">
@@ -58,7 +112,6 @@ function tampilkanDaftarBakat() {
             HTMLPesan += `</div>`;
         }
 
-        // Isi elemen kartu dengan data siswa
         kartu.innerHTML = `
             <div>
                 <span class="lencana-bakat">${item.bakat}</span>
@@ -70,25 +123,23 @@ function tampilkanDaftarBakat() {
             <button class="btn-pesan" onclick="bukaModalPesan(${item.id})">💬 Minta Bantuan / Kirim Pesan</button>
         `;
 
-        // Masukkan kartu ke dalam wadah di halaman
         wadahDaftarBakat.appendChild(kartu);
     });
 }
 
-// --- 4. Menangani Form Tambah Bakat Baru ---
+// --- 5. Menangani Form Promosikan Bakat Baru ---
 formBakat.addEventListener('submit', function(e) {
-    // Mencegah browser melakukan reload halaman saat form di-submit
-    e.preventDefault();
+    e.preventDefault(); // Mencegah reload halaman
 
-    // Ambil nilai dari input form
+    // Ambil data dari input form
     const nama = document.getElementById('nama').value;
     const kelas = document.getElementById('kelas').value;
     const bakat = document.getElementById('bakat').value;
     const deskripsi = document.getElementById('deskripsi').value;
 
-    // Buat objek bakat baru
+    // Buat objek data bakat baru
     const bakatBaru = {
-        id: Date.now(), // Menggunakan timestamp unik sebagai ID
+        id: Date.now(), // ID unik berdasarkan waktu
         nama: nama,
         kelas: kelas,
         bakat: bakat,
@@ -96,61 +147,56 @@ formBakat.addEventListener('submit', function(e) {
         pesan: []
     };
 
-    // Tambahkan ke dalam array dataBakat
-    dataBakat.unshift(bakatBaru); // unshift menaruh data baru di urutan paling atas
+    // Tambahkan data ke urutan teratas
+    dataBakat.unshift(bakatBaru);
 
-    // Reset form agar kolom input menjadi kosong kembali
+    // Reset isi form
     formBakat.reset();
 
-    // Perbarui tampilan daftar bakat di halaman
-    tampilkanDaftarBakat();
+    // Notifikasi dan pindah ke Halaman Bakat secara otomatis
+    alert('Bakatmu berhasil dipromosikan!');
+    bukaHalaman('halaman-lihat');
 });
 
-// --- 5. Fungsi Membuka Modal Pop-up Pesan ---
+// --- 6. Fungsi Membuka & Menutup Pop-up Kirim Pesan ---
 function bukaModalPesan(id) {
     idSiswaTerpilih = id;
-    
-    // Cari data siswa berdasarkan ID
     const siswa = dataBakat.find(s => s.id === id);
     
     if (siswa) {
-        modalDeskripsiTujuan.innerText = `Kirim pesan ke ${siswa.nama} (${siswa.bakat})`;
-        modalPesan.classList.remove('hidden'); // Tampilkan modal
+        modalDeskripsiTujuan.innerText = `Kirim pesan ke: ${siswa.nama} (${siswa.bakat})`;
+        modalPesan.classList.remove('hidden');
     }
 }
 
-// --- 6. Fungsi Menutup Modal Pop-up ---
 btnTutupModal.addEventListener('click', function() {
-    modalPesan.classList.add('hidden'); // Sembunyikan modal
+    modalPesan.classList.add('hidden');
 });
 
-// --- 7. Menangani Form Kirim Pesan ---
+// --- 7. Menangani Pengiriman Pesan ---
 formPesan.addEventListener('submit', function(e) {
     e.preventDefault();
 
     const pengirim = document.getElementById('pengirim').value;
     const isiPesan = document.getElementById('isi-pesan').value;
 
-    // Cari siswa yang dituju
     const siswa = dataBakat.find(s => s.id === idSiswaTerpilih);
 
     if (siswa) {
-        // Tambahkan pesan baru ke dalam array pesan milik siswa tersebut
+        // Masukkan pesan ke dalam siswa yang bersangkutan
         siswa.pesan.push({
             pengirim: pengirim,
             isi: isiPesan
         });
 
-        // Reset form pesan & tutup modal
         formPesan.reset();
         modalPesan.classList.add('hidden');
 
-        // Perbarui tampilan layar
+        // Refresh daftar bakat untuk langsung memperlihatkan pesan baru
         tampilkanDaftarBakat();
-        alert('Pesan berhasil dikirim!');
+        alert('Pesan bantuan berhasil terkirim!');
     }
 });
 
-// --- 8. Jalankan Fungsi Tampil Pertama Kali ---
-// Fungsi ini dijalankan ketika halaman web selesai dimuat
-tampilkanDaftarBakat();
+// --- 8. Jalankan Halaman Beranda Saat Pertama Dibuka ---
+bukaHalaman('halaman-beranda');
