@@ -359,3 +359,27 @@ body {
         text-align: center;
     }
 }
+
+/* --- Tambahan Tombol Hapus Postingan --- */
+.btn-hapus-post {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-hapus-post:hover {
+    background-color: #dc2626;
+}
+
+.header-kartu {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
