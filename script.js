@@ -1,11 +1,13 @@
-// --- 1. Data Sampel Bakat Siswa (Dummy Data) ---
-let dataBakat = [
+// --- 1. Data Awal & Fungsi Mengambil dari LocalStorage ---
+// Mengambil data tersimpan di localStorage, atau memakai data dummy default jika masih kosong
+let dataBakat = JSON.parse(localStorage.getItem('data_bakat_siswa')) || [
     {
         id: 1,
         nama: "Rizky Pratama",
         kelas: "XI RPL 2",
         bakat: "Pemrograman Web & Python",
         deskripsi: "Saya bisa membantu membuatkan website sederhana untuk tugas sekolah atau project organisasi.",
+        pin: "1234",
         pesan: [
             { pengirim: "Siti", isi: "Halo Rizky, bisakah bantu saya belajar dasar HTML?" }
         ]
@@ -16,9 +18,15 @@ let dataBakat = [
         kelas: "XII MM 1",
         bakat: "Desain Ilustrasi & Logo",
         deskripsi: "Suka menggambar digital. Bisa bantu desain logo stiker, kelas, atau kaos acara.",
+        pin: "1234",
         pesan: []
     }
 ];
+
+// Fungsi untuk menyimpan data terbaru ke LocalStorage browser
+function simpanKeLocalStorage() {
+    localStorage.setItem('data_bakat_siswa', JSON.stringify(dataBakat));
+}
 
 // Variabel untuk menyimpan ID siswa yang dipilih untuk dikirimi pesan
 let idSiswaTerpilih = null;
@@ -45,17 +53,14 @@ const modalDeskripsiTujuan = document.getElementById('modal-deskripsi-tujuan');
 
 // --- 3. Fungsi Sistem Navigasi Pindah Halaman ---
 function bukaHalaman(namaHalaman) {
-    // Sembunyikan semua halaman
     if (halBeranda) halBeranda.classList.add('hidden');
     if (halTambah) halTambah.classList.add('hidden');
     if (halLihat) halLihat.classList.add('hidden');
 
-    // Hapus kelas aktif dari tombol navigasi atas
     if (navHome) navHome.classList.remove('active');
     if (navTambah) navTambah.classList.remove('active');
     if (navLihat) navLihat.classList.remove('active');
 
-    // Tampilkan halaman yang dituju
     if (namaHalaman === 'halaman-beranda') {
         if (halBeranda) halBeranda.classList.remove('hidden');
         if (navHome) navHome.classList.add('active');
@@ -65,21 +70,20 @@ function bukaHalaman(namaHalaman) {
     } else if (namaHalaman === 'halaman-lihat') {
         if (halLihat) halLihat.classList.remove('hidden');
         if (navLihat) navLihat.classList.add('active');
-        tampilkanDaftarBakat(); // Muat daftar bakat saat halaman dibuka
+        tampilkanDaftarBakat(); // Refresh isi daftar bakat
     }
 }
 
-// --- 4. Menghubungkan Tombol Navigasi dengan Event Listener ---
+// Menghubungkan Tombol Navigasi
 if (navHome) navHome.addEventListener('click', () => bukaHalaman('halaman-beranda'));
 if (navLogo) navLogo.addEventListener('click', () => bukaHalaman('halaman-beranda'));
 if (navTambah) navTambah.addEventListener('click', () => bukaHalaman('halaman-tambah'));
 if (navLihat) navLihat.addEventListener('click', () => bukaHalaman('halaman-lihat'));
 
-// Menghubungkan klik kartu pilihan di halaman beranda
 if (kartuKeTambah) kartuKeTambah.addEventListener('click', () => bukaHalaman('halaman-tambah'));
 if (kartuKeLihat) kartuKeLihat.addEventListener('click', () => bukaHalaman('halaman-lihat'));
 
-// --- 5. Fungsi Menampilkan Daftar Bakat ---
+// --- 4. Fungsi Menampilkan Daftar Bakat ---
 function tampilkanDaftarBakat() {
     if (!wadahDaftarBakat) return;
     wadahDaftarBakat.innerHTML = '';
@@ -95,7 +99,7 @@ function tampilkanDaftarBakat() {
 
         let HTMLPesan = '';
         if (item.pesan && item.pesan.length > 0) {
-            HTMLPesan = `<div class="daftar-pesan-masuk"><h4>📩 Pesan Masuk:</h4>`;
+            HTMLPesan = `<div class="daftar-pesan-masuk"><h4>📩 Pesan Masuk / Permintaan Bantuan:</h4>`;
             item.pesan.forEach(p => {
                 HTMLPesan += `
                     <div class="pesan-box">
@@ -108,7 +112,10 @@ function tampilkanDaftarBakat() {
 
         kartu.innerHTML = `
             <div>
-                <span class="lencana-bakat">${item.bakat}</span>
+                <div class="header-kartu">
+                    <span class="lencana-bakat">${item.bakat}</span>
+                    <button class="btn-hapus-post" type="button" onclick="hapusPostingan(${item.id})">🗑️ Hapus</button>
+                </div>
                 <h3>${item.nama}</h3>
                 <p class="sub-info">Kelas: ${item.kelas}</p>
                 <p>${item.deskripsi}</p>
@@ -121,7 +128,7 @@ function tampilkanDaftarBakat() {
     });
 }
 
-// --- 6. Menangani Form Tambah Bakat ---
+// --- 5. Menangani Form Tambah Bakat Baru ---
 if (formBakat) {
     formBakat.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -130,6 +137,7 @@ if (formBakat) {
         const kelas = document.getElementById('kelas').value;
         const bakat = document.getElementById('bakat').value;
         const deskripsi = document.getElementById('deskripsi').value;
+        const pin = document.getElementById('pin').value;
 
         const bakatBaru = {
             id: Date.now(),
@@ -137,18 +145,49 @@ if (formBakat) {
             kelas: kelas,
             bakat: bakat,
             deskripsi: deskripsi,
+            pin: pin,
             pesan: []
         };
 
+        // Simpan ke array
         dataBakat.unshift(bakatBaru);
+        
+        // Simpan ke LocalStorage agar tetap ada saat refresh
+        simpanKeLocalStorage();
+
         formBakat.reset();
 
-        alert('Bakatmu berhasil dipromosikan!');
+        alert('Bakatmu berhasil dipromosikan! Ingat PIN yang kamu masukkan untuk menghapus postingan ini nanti.');
         bukaHalaman('halaman-lihat');
     });
 }
 
-// --- 7. Fungsi Modal Pop-up Pesan (Global agar bisa dipanggil HTML) ---
+// --- 6. Fungsi Menghapus Postingan dengan Otorisasi PIN ---
+window.hapusPostingan = function(id) {
+    const siswa = dataBakat.find(s => s.id === id);
+
+    if (!siswa) return;
+
+    // Tampilkan pop-up input PIN
+    const inputPin = prompt(`Masukkan PIN Rahasia 4-6 Digit untuk menghapus postingan milik "${siswa.nama}":`);
+
+    if (inputPin === null) return; // Jika user menekan Cancel
+
+    if (inputPin === siswa.pin) {
+        // Hapus data dari array jika PIN cocok
+        dataBakat = dataBakat.filter(s => s.id !== id);
+        
+        // Simpan perubahan ke LocalStorage
+        simpanKeLocalStorage();
+        
+        tampilkanDaftarBakat();
+        alert('Postingan berhasil dihapus!');
+    } else {
+        alert('❌ PIN Salah! Kamu tidak memiliki akses untuk menghapus postingan ini.');
+    }
+};
+
+// --- 7. Fungsi Pop-up Pesan ---
 window.bukaModalPesan = function(id) {
     idSiswaTerpilih = id;
     const siswa = dataBakat.find(s => s.id === id);
@@ -180,6 +219,9 @@ if (formPesan) {
                 pengirim: pengirim,
                 isi: isiPesan
             });
+
+            // Simpan perubahan pesan ke LocalStorage
+            simpanKeLocalStorage();
 
             formPesan.reset();
             if (modalPesan) modalPesan.classList.add('hidden');
