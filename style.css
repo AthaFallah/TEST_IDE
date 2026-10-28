@@ -12,52 +12,182 @@ body {
     line-height: 1.6;
 }
 
-/* --- 2. Header / Bagian Atas --- */
+/* Sembunyikan elemen dengan class hidden */
+.hidden {
+    display: none !important;
+}
+
+/* --- 2. Header & Navigasi --- */
 .header-utama {
     background: linear-gradient(135deg, #4f46e5, #7c3aed);
     color: #ffffff;
-    text-align: center;
-    padding: 2.5rem 1rem;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-.header-utama h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
+.logo-text {
+    font-size: 1.6rem;
+    cursor: pointer;
 }
 
-.header-utama p {
-    font-size: 1rem;
-    opacity: 0.9;
+.nav-menu {
+    display: flex;
+    gap: 0.5rem;
 }
 
-/* --- 3. Tata Letak Kontainer Utama --- */
+.btn-nav {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-nav:hover, .btn-nav.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+}
+
+/* --- 3. Kontainer Utama --- */
 .container {
-    max-width: 900px;
+    max-width: 950px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* --- 4. Desain Kartu / Card Section --- */
+/* --- 4. Tampilan Beranda / Pilihan --- */
+.hero-box {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+.hero-box h2 {
+    color: #1e293b;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-box p {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.judul-pilihan {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #334155;
+}
+
+.grid-pilihan {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.kartu-pilihan {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.kartu-pilihan:hover {
+    transform: translateY(-5px);
+    border-color: #4f46e5;
+}
+
+.ikon-pilihan {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.kartu-pilihan h3 {
+    font-size: 1.4rem;
+    color: #1e293b;
+    margin-bottom: 0.8rem;
+}
+
+.kartu-pilihan p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-akses {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-akses:hover {
+    background-color: #4338ca;
+}
+
+.btn-sekunder {
+    background-color: #0284c7;
+}
+
+.btn-sekunder:hover {
+    background-color: #0369a1;
+}
+
+/* --- 5. Desain Section & Form --- */
+.btn-kembali {
+    background: none;
+    border: none;
+    color: #4f46e5;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.btn-kembali:hover {
+    text-decoration: underline;
+}
+
 .kartu-section {
     background-color: #ffffff;
-    padding: 1.8rem;
+    padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
 }
 
 .kartu-section h2 {
     color: #1e293b;
-    margin-bottom: 1.2rem;
-    font-size: 1.4rem;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 0.5rem;
+    font-size: 1.5rem;
 }
 
-/* --- 5. Desain Form Input --- */
+.sub-judul {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
 .input-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
 .input-group label {
@@ -70,60 +200,40 @@ body {
 .input-group input, 
 .input-group textarea {
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.8rem;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
     font-size: 0.95rem;
-    transition: border-color 0.2s;
 }
 
-/* Efek saat input diklik/aktif */
 .input-group input:focus, 
 .input-group textarea:focus {
     outline: none;
     border-color: #4f46e5;
 }
 
-/* --- 6. Desain Tombol --- */
 .btn-primary {
     background-color: #4f46e5;
     color: white;
     border: none;
-    padding: 0.75rem 1.2rem;
+    padding: 0.8rem 1.2rem;
     font-size: 1rem;
     font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.2s;
 }
 
 .btn-primary:hover {
     background-color: #4338ca;
 }
 
-.btn-pesan {
-    background-color: #10b981;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 1rem;
-    width: 100%;
-    transition: background-color 0.2s;
-}
-
-.btn-pesan:hover {
-    background-color: #059669;
-}
-
-/* --- 7. Tampilan Grid Kartu Bakat Siswa --- */
+/* --- 6. Grid Penampil Bakat Siswa --- */
 .grid-bakat {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.2rem;
+    margin-top: 1rem;
 }
 
 .item-bakat {
@@ -136,13 +246,13 @@ body {
     justify-content: space-between;
 }
 
-.item-bakat .lencana-bakat {
+.lencana-bakat {
     display: inline-block;
     background-color: #e0e7ff;
     color: #3730a3;
     font-size: 0.85rem;
     font-weight: 600;
-    padding: 0.2rem 0.6rem;
+    padding: 0.25rem 0.6rem;
     border-radius: 20px;
     margin-bottom: 0.5rem;
 }
@@ -152,10 +262,26 @@ body {
     font-size: 1.2rem;
 }
 
-.item-bakat .sub-info {
+.sub-info {
     font-size: 0.85rem;
     color: #64748b;
     margin-bottom: 0.8rem;
+}
+
+.btn-pesan {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.btn-pesan:hover {
+    background-color: #059669;
 }
 
 /* Daftar Pesan Masuk */
@@ -185,7 +311,7 @@ body {
     color: #4f46e5;
 }
 
-/* --- 8. Pop-up / Modal --- */
+/* --- 7. Modal Pop-up --- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -199,26 +325,37 @@ body {
     padding: 1rem;
 }
 
-.modal-overlay.hidden {
-    display: none; /* Menyembunyikan modal secara default */
-}
-
 .modal-konten {
     background-color: white;
-    padding: 1.5rem;
+    padding: 1.8rem;
     border-radius: 12px;
     width: 100%;
     max-width: 450px;
     position: relative;
 }
 
+.modal-tujuan {
+    color: #4f46e5;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
 .btn-tutup {
     position: absolute;
-    top: 10px;
+    top: 12px;
     right: 15px;
     background: none;
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
     color: #64748b;
+}
+
+/* --- 8. Responsif Layar Kecil (HP) --- */
+@media (max-width: 600px) {
+    .header-utama {
+        flex-direction: column;
+        text-align: center;
+    }
 }
