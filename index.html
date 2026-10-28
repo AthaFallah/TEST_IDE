@@ -1,4 +1,4 @@
-<!DOCTYPE1 html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <!-- Pengaturan karakter dan responsivitas layar HP/Laptop -->
@@ -11,53 +11,99 @@
 </head>
 <body>
 
-    <!-- Header / Bagian Atas Website -->
+    <!-- Navigasi / Header Utama -->
     <header class="header-utama">
-        <h1>🌟 Wadah Bakat Siswa</h1>
-        <p>Tunjukkan bakatmu, temukan teman berbakat, dan saling bantu!</p>
+        <h1 id="nav-logo" class="logo-text">🌟 TalentSiswa</h1>
+        <!-- Menu Navigasi Atas -->
+        <nav class="nav-menu">
+            <button id="nav-home" class="btn-nav active">Beranda</button>
+            <button id="nav-tambah" class="btn-nav">Promosikan Bakatmu</button>
+            <button id="nav-lihat" class="btn-nav">Halaman Bakat</button>
+        </nav>
     </header>
 
     <!-- Kontainer Utama Website -->
     <main class="container">
 
-        <!-- Form Tambah Bakat (Untuk Siswa Memposting Bakat) -->
-        <section class="kartu-section">
-            <h2>➕ Tambahkan Bakat Kamu</h2>
-            <form id="form-bakat">
-                <!-- Input Nama Siswa -->
-                <div class="input-group">
-                    <label for="nama">Nama Lengkap:</label>
-                    <input type="text" id="nama" placeholder="Contoh: Budi Santoso" required>
+        <!-- ================= HALAMAN 1: BERANDA / PILIHAN UTAMA ================= -->
+        <section id="halaman-beranda" class="halaman-view">
+            <div class="hero-box">
+                <h2>Selamat Datang di Wadah Bakat Siswa! 👋</h2>
+                <p>Tempat terbaik untuk menunjukkan keahlianmu dan saling bantu antar siswa sekolah.</p>
+            </div>
+
+            <h3 class="judul-pilihan">Silakan Pilih Layanan:</h3>
+
+            <!-- 2 Pilihan Utama Halaman Depan -->
+            <div class="grid-pilihan">
+                <!-- Pilihan 1: Promosikan Bakat -->
+                <div class="kartu-pilihan" id="kartu-ke-tambah">
+                    <div class="ikon-pilihan">🚀</div>
+                    <h3>Promosikan Bakatmu</h3>
+                    <p>Isi biodata, tampilkan keahlianmu, dan biarkan teman-teman mengetahui potensi terbaikmu!</p>
+                    <button class="btn-akses">Buka Form Promosi &rarr;</button>
                 </div>
 
-                <!-- Input Kelas / Jurusan -->
-                <div class="input-group">
-                    <label for="kelas">Kelas / Jurusan:</label>
-                    <input type="text" id="kelas" placeholder="Contoh: XII IPA 1" required>
+                <!-- Pilihan 2: Halaman Bakat -->
+                <div class="kartu-pilihan" id="kartu-ke-lihat">
+                    <div class="ikon-pilihan">🔍</div>
+                    <h3>Halaman Bakat Siswa</h3>
+                    <p>Jelajahi karya & bakat siswa lain. Kirimkan pesan jika kamu membutuhkan bantuan mereka!</p>
+                    <button class="btn-akses btn-sekunder">Lihat Daftar Bakat &rarr;</button>
                 </div>
-
-                <!-- Input Judul Bakat -->
-                <div class="input-group">
-                    <label for="bakat">Bakat / Keahlian Utama:</label>
-                    <input type="text" id="bakat" placeholder="Contoh: Desain Grafis & Edit Video" required>
-                </div>
-
-                <!-- Input Deskripsi Bakat -->
-                <div class="input-group">
-                    <label for="deskripsi">Deskripsi & Cara Kamu Bisa Membantu:</label>
-                    <textarea id="deskripsi" rows="3" placeholder="Contoh: Saya bisa bantu buatkan poster acara sekolah atau edit video TikTok/Reels." required></textarea>
-                </div>
-
-                <!-- Tombol Submit Form -->
-                <button type="submit" class="btn-primary">Bagikan Bakat Saya</button>
-            </form>
+            </div>
         </section>
 
-        <!-- Daftar Bakat yang Diunggah -->
-        <section class="kartu-section">
-            <h2>✨ Daftar Bakat Siswa</h2>
-            <!-- Wadah ini akan diisi secara otomatis oleh JavaScript -->
-            <div id="daftar-bakat" class="grid-bakat"></div>
+        <!-- ================= HALAMAN 2: FORM PROMOSI BAKAT ================= -->
+        <section id="halaman-tambah" class="halaman-view hidden">
+            <button class="btn-kembali" onclick="bukaHalaman('halaman-beranda')">&larr; Kembali ke Beranda</button>
+            
+            <div class="kartu-section">
+                <h2>📝 Promosikan Bakat & Keahlianmu</h2>
+                <p class="sub-judul">Isi formulir di bawah ini agar bakatmu dapat dilihat oleh semua siswa.</p>
+
+                <form id="form-bakat">
+                    <!-- Input Nama Siswa -->
+                    <div class="input-group">
+                        <label for="nama">Nama Lengkap:</label>
+                        <input type="text" id="nama" placeholder="Contoh: Budi Santoso" required>
+                    </div>
+
+                    <!-- Input Kelas / Jurusan -->
+                    <div class="input-group">
+                        <label for="kelas">Kelas / Jurusan:</label>
+                        <input type="text" id="kelas" placeholder="Contoh: XII IPA 1" required>
+                    </div>
+
+                    <!-- Input Judul Bakat -->
+                    <div class="input-group">
+                        <label for="bakat">Bakat / Keahlian Utama:</label>
+                        <input type="text" id="bakat" placeholder="Contoh: Desain Grafis & Edit Video" required>
+                    </div>
+
+                    <!-- Input Deskripsi Bakat -->
+                    <div class="input-group">
+                        <label for="deskripsi">Deskripsi & Cara Kamu Bisa Membantu:</label>
+                        <textarea id="deskripsi" rows="4" placeholder="Contoh: Saya bisa bantu buatkan poster acara sekolah atau edit video TikTok/Reels." required></textarea>
+                    </div>
+
+                    <!-- Tombol Submit Form -->
+                    <button type="submit" class="btn-primary">Bagikan Bakat Saya Sekarang!</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 3: PENAMPIL DAFTAR BAKAT ================= -->
+        <section id="halaman-lihat" class="halaman-view hidden">
+            <button class="btn-kembali" onclick="bukaHalaman('halaman-beranda')">&larr; Kembali ke Beranda</button>
+            
+            <div class="kartu-section">
+                <h2>✨ Halaman Bakat Siswa</h2>
+                <p class="sub-judul">Cari bantuan atau kirim pesan kolaborasi kepada siswa yang kamu pilih.</p>
+                
+                <!-- Wadah daftar bakat (diisi oleh JavaScript) -->
+                <div id="daftar-bakat" class="grid-bakat"></div>
+            </div>
         </section>
 
     </main>
@@ -68,8 +114,8 @@
             <!-- Tombol Tutup Pop-up -->
             <button class="btn-tutup" id="btn-tutup-modal">&times;</button>
             
-            <h3 id="modal-judul">Kirim Pesan Bantuan</h3>
-            <p id="modal-deskripsi-tujuan"></p>
+            <h3>Kirim Pesan Bantuan</h3>
+            <p id="modal-deskripsi-tujuan" class="modal-tujuan"></p>
 
             <form id="form-pesan">
                 <!-- Input Nama Pengirim Pesan -->
@@ -81,10 +127,10 @@
                 <!-- Input Pesan yang Ingin Disampaikan -->
                 <div class="input-group">
                     <label for="isi-pesan">Pesan / Permintaan Bantuan:</label>
-                    <textarea id="isi-pesan" rows="3" placeholder="Contoh: Halo! Bolehkah bantu buatkan poster untuk kegiatan OSIS?" required></textarea>
+                    <textarea id="isi-pesan" rows="3" placeholder="Contoh: Halo! Bolehkah minta tolong bantu buatkan desain logo kelas?" required></textarea>
                 </div>
 
-                <button type="submit" class="btn-primary">Kirim Pesan</button>
+                <button type="submit" class="btn-primary">Kirim Pesan Bantuan</button>
             </form>
         </div>
     </div>
