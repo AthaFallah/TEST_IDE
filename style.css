@@ -1,1 +1,224 @@
+/* --- 1. Pengaturan Dasar & Font --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+body {
+    background-color: #f4f7fe;
+    color: #333333;
+    line-height: 1.6;
+}
+
+/* --- 2. Header / Bagian Atas --- */
+.header-utama {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #ffffff;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-utama h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.header-utama p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* --- 3. Tata Letak Kontainer Utama --- */
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* --- 4. Desain Kartu / Card Section --- */
+.kartu-section {
+    background-color: #ffffff;
+    padding: 1.8rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.kartu-section h2 {
+    color: #1e293b;
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+/* --- 5. Desain Form Input --- */
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.input-group input, 
+.input-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+/* Efek saat input diklik/aktif */
+.input-group input:focus, 
+.input-group textarea:focus {
+    outline: none;
+    border-color: #4f46e5;
+}
+
+/* --- 6. Desain Tombol --- */
+.btn-primary {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+}
+
+.btn-pesan {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.btn-pesan:hover {
+    background-color: #059669;
+}
+
+/* --- 7. Tampilan Grid Kartu Bakat Siswa --- */
+.grid-bakat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+}
+
+.item-bakat {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item-bakat .lencana-bakat {
+    display: inline-block;
+    background-color: #e0e7ff;
+    color: #3730a3;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+}
+
+.item-bakat h3 {
+    color: #0f172a;
+    font-size: 1.2rem;
+}
+
+.item-bakat .sub-info {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0.8rem;
+}
+
+/* Daftar Pesan Masuk */
+.daftar-pesan-masuk {
+    margin-top: 1rem;
+    background-color: #ffffff;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+}
+
+.daftar-pesan-masuk h4 {
+    font-size: 0.85rem;
+    color: #334155;
+    margin-bottom: 0.4rem;
+}
+
+.pesan-box {
+    background-color: #f1f5f9;
+    padding: 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.pesan-box strong {
+    color: #4f46e5;
+}
+
+/* --- 8. Pop-up / Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal-overlay.hidden {
+    display: none; /* Menyembunyikan modal secara default */
+}
+
+.modal-konten {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+}
+
+.btn-tutup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #64748b;
+}
